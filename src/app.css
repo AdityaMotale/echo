@@ -1,13 +1,12 @@
 @import '@fontsource-variable/epilogue'; /* Supports weights 100-900 */
 @import '@fontsource-variable/space-grotesk'; /* Supports weights 300-700 */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
 	min-height: 100vh;
 	max-width: 100vw;
 	padding: 0px;
 	margin: 0px;
+	background-color: #f9f9f9;
+	color: #0c0c0c;
+	font-family: 'Space Grotesk Variable', 'sans-serif';
 }

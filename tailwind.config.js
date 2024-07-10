@@ -11,7 +11,7 @@ export default {
 				accent: '#9747FF',
 				bg: '#F9F9F9',
 				secBg: '#EEEEEE',
-				border: '#F8F8F8',
+				border: '#EEEEEE',
 				primary: '#0C0C0C',
 				secondary: '#F6F6F6'
 			}
