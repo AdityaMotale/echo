@@ -2,24 +2,10 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>echo</title>
+	<meta name="description" content="Chat app that echos your inner voice" />
 </svelte:head>
 
-<section>
-	<h1>Echo</h1>
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-</style>
+<main class="w-full h-screen flex items-center justify-center">
+	<h1 class="text-accent font-display font-bold md:text-7xl text-4xl">echo</h1>
+</main>

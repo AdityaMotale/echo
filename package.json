@@ -14,7 +14,8 @@
 		"test:unit": "vitest"
 	},
 	"devDependencies": {
-		"@fontsource/fira-mono": "^4.5.10",
+		"@fontsource-variable/epilogue": "^5.0.14",
+		"@fontsource-variable/space-grotesk": "^5.0.18",
 		"@neoconfetti/svelte": "^1.0.0",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
@@ -39,8 +40,5 @@
 		"vitest": "^1.2.0"
 	},
 	"type": "module",
-	"dependencies": {
-		"@fontsource-variable/epilogue": "^5.0.14",
-		"@fontsource-variable/space-grotesk": "^5.0.18"
-	}
+	"dependencies": {}
 }
