@@ -1,1 +1,12 @@
-@import '@fontsource/fira-mono';
+@import '@fontsource-variable/epilogue'; /* Supports weights 100-900 */
+@import '@fontsource-variable/space-grotesk'; /* Supports weights 300-700 */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	min-height: 100vh;
+	padding: 0px;
+	margin: 0px;
+}
