@@ -34,13 +34,13 @@
 		</div>
 
 		<!-- Chats -->
-		<section class="grow overflow-y-scroll my-7">
-			<div class="flex flex-col gap-2">
+		<section class={`grow my-7 ${chats.length >= 10 ? 'overflow-y-scroll' : ''}`}>
+			<div class="flex flex-col gap-2.5">
 				{#each chats as chat}
 					<button class="hover:bg-bg flex items-center justify-between p-2 rounded-lg w-full">
-						<p class="font-sans font-medium text-lg">{chat}</p>
-						<button class="bg-bg hover:bg-secBg p-1.5 rounded-lg">
-							<img src={TrashIcon} alt="Trash Icon" width="20px" height="20px" />
+						<p class="font-sans font-normal text-base">{chat}</p>
+						<button class="hover:bg-secBg p-1 rounded-lg">
+							<img src={TrashIcon} alt="Trash Icon" width="16px" height="16px" />
 						</button>
 					</button>
 				{/each}
