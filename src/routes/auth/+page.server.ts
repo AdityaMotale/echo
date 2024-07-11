@@ -1,5 +1,16 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import type { PageLoad } from '../$types';
+
+export const load: PageLoad = ({ cookies }) => {
+	let isLoggedIn = cookies.get('isLoggedIn');
+
+	if (isLoggedIn && isLoggedIn === '1') {
+		throw redirect(303, '/chat/');
+	}
+
+	return {};
+};
 
 export const actions = {
 	default: async ({ cookies, request }) => {

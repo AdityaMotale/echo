@@ -19,8 +19,6 @@
 	function checkAuthDetails() {
 		let isLoggedIn = getCookie('isLoggedIn');
 
-		console.log({ isLoggedIn });
-
 		if (isLoggedIn == '1') {
 			goto('/chat');
 			return;

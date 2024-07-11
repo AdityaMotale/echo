@@ -2,8 +2,13 @@ import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import type { PageLoad } from '../../$types';
 
-export const load: PageLoad = ({ url }) => {
+export const load: PageLoad = ({ url, cookies }) => {
 	let username = url.searchParams.get('username');
+	let isLoggedIn = cookies.get('isLoggedIn');
+
+	if (isLoggedIn && isLoggedIn === '1') {
+		throw redirect(303, '/chat/');
+	}
 
 	if (username === undefined || !username) {
 		throw redirect(303, '/auth/');
