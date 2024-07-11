@@ -34,14 +34,16 @@ export const actions = {
 				path: '/',
 				httpOnly: true,
 				secure: true,
-				sameSite: 'strict'
+				sameSite: 'strict',
+				maxAge: 60 * 60 * 24 * 30 // 30 days
 			});
 
 			cookies.set('isLoggedIn', '1', {
 				path: '/',
 				httpOnly: false,
 				secure: true,
-				sameSite: 'strict'
+				sameSite: 'strict',
+				maxAge: 60 * 60 * 24 * 30 // 30 days
 			});
 
 			throw redirect(303, `/chat`);

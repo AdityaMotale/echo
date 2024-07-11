@@ -36,7 +36,8 @@ export const actions = {
 				path: '/',
 				httpOnly: false,
 				secure: true,
-				sameSite: 'strict'
+				sameSite: 'strict',
+				maxAge: 60 * 60 * 24 * 30 // 30 days
 			});
 
 			throw redirect(303, `/chat`);
