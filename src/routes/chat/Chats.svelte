@@ -1,24 +1,32 @@
 <script lang="ts">
 	import ChatIcon from '$lib/icons/chat.svg';
 	import { UserRole, type ChatDetails } from '$lib/core/types';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
-	let chats: ChatDetails[] = [
-		{
+	const dispatch = createEventDispatcher();
+
+	export let chats: ChatDetails[];
+	let userInput: string = '';
+
+	function writeUserMessage() {
+		let chat: ChatDetails = {
 			id: Date.now(),
-			message:
-				"Programming is not just about code; it's about creating a better world, one line at a time. Enjoy the journey, for in the passion of creation lies the power to change the world.",
-			role: UserRole.HUMAN,
-			next: null
-		},
-		{
-			id: Date.now() + 4000,
-			message:
-				"Programming is not just about code; it's about creating a better world, one line at a time. Enjoy the journey, for in the passion of creation lies the power to change the world.",
-			role: UserRole.SYSTEM,
-			next: null
-		}
-	];
+			message: userInput,
+			role: UserRole.HUMAN
+		};
+
+		dispatch('message', chat);
+	}
+
+	function writeSystemMessage(message: string) {
+		let chat: ChatDetails = {
+			id: Date.now(),
+			message: message,
+			role: UserRole.SYSTEM
+		};
+
+		dispatch('message', chat);
+	}
 
 	/**
 	 * Extract time from epoch created by `Date.now()`
@@ -44,60 +52,64 @@
 
 		return formattedTime;
 	}
-
-	onMount(() => {
-		chats = chats.reverse();
-	});
 </script>
 
 <div class="w-full md:px-10 flex flex-col justify-end gap-4">
 	<!-- Chats in the chat section -->
 	<section class="grow flex flex-col-reverse justify-start overflow-y-scroll">
 		<div class="h-full w-full flex flex-col-reverse gap-4 px-4 py-2">
-			{#each chats as chat}
-				{#if chat.role == UserRole.HUMAN}
-					<div class="flex w-full justify-end">
-						<div class="flex flex-col items-end justify-start max-w-lg gap-2">
-							<div class="bg-secBg w-fit p-4 rounded-xl">
-								<p>{chat.message}</p>
-							</div>
-							<div class="flex items-center mx-4 gap-2">
-								<p class="font-sans text-sm text-center font-light">YOU</p>
-								<p class="font-sans text-sm text-center font-light">•</p>
-								<p class="font-sans text-sm text-center font-light">
-									{extractTimeFromEpoch(chat.id)}
-								</p>
-							</div>
-						</div>
-					</div>
-				{:else}
-					<div class="flex w-full items-center">
-						<div class="flex flex-col items-start max-w-lg gap-2">
-							<div class="bg-accent text-white w-fit p-4 rounded-xl">
-								<p>{chat.message}</p>
-							</div>
-							<div class="flex items-center mx-4 gap-2">
-								<p class="font-sans text-sm text-center font-light">YOU</p>
-								<p class="font-sans text-sm text-center font-light">•</p>
-								<p class="font-sans text-sm text-center font-light">
-									{extractTimeFromEpoch(chat.id)}
-								</p>
+			{#if chats && chats.length !== 0}
+				{#each chats.reverse() as chat}
+					{#if chat.role == UserRole.HUMAN}
+						<div class="flex w-full justify-end">
+							<div class="flex flex-col items-end justify-start max-w-lg gap-2">
+								<div class="bg-secBg w-fit p-4 rounded-xl">
+									<p>{chat.message}</p>
+								</div>
+								<div class="flex items-center mx-4 gap-2">
+									<p class="font-sans text-sm text-center font-light">YOU</p>
+									<p class="font-sans text-sm text-center font-light">•</p>
+									<p class="font-sans text-sm text-center font-light">
+										{extractTimeFromEpoch(chat.id)}
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
-				{/if}
-			{/each}
+					{:else}
+						<div class="flex w-full items-center">
+							<div class="flex flex-col items-start max-w-lg gap-2">
+								<div class="bg-accent text-white w-fit p-4 rounded-xl">
+									<p>{chat.message}</p>
+								</div>
+								<div class="flex items-center mx-4 gap-2">
+									<p class="font-sans text-sm text-center font-light">YOU</p>
+									<p class="font-sans text-sm text-center font-light">•</p>
+									<p class="font-sans text-sm text-center font-light">
+										{extractTimeFromEpoch(chat.id)}
+									</p>
+								</div>
+							</div>
+						</div>
+					{/if}
+				{/each}
+			{/if}
 		</div>
 	</section>
 
 	<!-- User Input Field for chats -->
 	<div class="w-full border-2 border-border rounded-xl py-2 px-3 flex items-center justify-between">
 		<input
+			bind:value={userInput}
 			type="text"
 			placeholder="Let's Chat"
 			class="font-medium grow bg-transparent font-sans border-none outline-none"
 		/>
-		<button class="p-1.5 rounded-lg bg-secBg" on:click={() => {}}>
+		<button
+			class="p-1.5 rounded-lg bg-secBg"
+			on:click={() => {
+				writeUserMessage();
+			}}
+		>
 			<img src={ChatIcon} alt="Chat Icon" width="24px" height="24px" />
 		</button>
 	</div>

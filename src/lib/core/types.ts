@@ -11,5 +11,4 @@ export interface ChatDetails {
 	id: number;
 	role: UserRole;
 	message: string;
-	next: ChatDetails | null;
 }

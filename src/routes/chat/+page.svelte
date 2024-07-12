@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { chatsList } from '$lib/core/chat_store';
+	import { chatsList } from '$lib/core/stores';
 	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 
 	onMount(() => {
 		const list = $chatsList;
 
-		console.log({ list });
+		if (data.id != null) {
+			goto(`chat/${data.id}`);
+			return;
+		}
 
 		if (!list || list.length === 0) {
 			let id = Date.now();
