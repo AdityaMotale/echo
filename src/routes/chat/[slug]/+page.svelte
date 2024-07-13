@@ -2,31 +2,38 @@
 	import Chats from '../Chats.svelte';
 	import Menu from '../Menu.svelte';
 	import { createChatDetailsList } from '$lib/core/stores';
-	// import { onMount } from 'svelte';
-	// import io, { Socket } from 'socket.io-client';
+	import { onMount } from 'svelte';
+	import io, { Socket } from 'socket.io-client';
+	import { UserRole } from '$lib/core/types';
 
 	export let data: PageData;
 
-	// let socket: Socket;
+	let socket: Socket;
 
 	let chatDetailsList = createChatDetailsList(data.id);
 
 	function handleMessages(event: any) {
-		// socket.emit('message', event.detail);
+		socket.emit('message', event.detail);
 		chatDetailsList.add(event.detail);
 	}
 
-	// onMount(() => {
-	// 	socket = io('https://echo-websocket.vercel.app/');
+	onMount(() => {
+		socket = io('https://echo-websocket.onrender.com/');
 
-	// 	socket.on('connect', () => {
-	// 		console.log('Connected to WebSocket server');
-	// 	});
+		socket.on('connect', () => {
+			console.log('Connected to WebSocket server');
+		});
 
-	// 	socket.on('message', (message) => {
-	// 		console.log({ message });
-	// 	});
-	// });
+		socket.on('message', (message) => {
+			if (message && message.message) {
+				chatDetailsList.add({
+					id: Date.now(),
+					message: message.message,
+					role: UserRole.SYSTEM
+				});
+			}
+		});
+	});
 </script>
 
 <svelte:head>

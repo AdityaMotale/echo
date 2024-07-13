@@ -82,7 +82,7 @@
 									<p>{chat.message}</p>
 								</div>
 								<div class="flex items-center mx-4 gap-2">
-									<p class="font-sans text-sm text-center font-light">YOU</p>
+									<p class="font-sans text-sm text-center font-light">echo</p>
 									<p class="font-sans text-sm text-center font-light">•</p>
 									<p class="font-sans text-sm text-center font-light">
 										{extractTimeFromEpoch(chat.id)}
