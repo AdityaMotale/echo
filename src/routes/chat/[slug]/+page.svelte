@@ -2,38 +2,23 @@
 	import Chats from '../Chats.svelte';
 	import Menu from '../Menu.svelte';
 	import { createChatDetailsList } from '$lib/core/stores';
-	import { onMount } from 'svelte';
-	import io, { Socket } from 'socket.io-client';
 	import { UserRole } from '$lib/core/types';
 
 	export let data: PageData;
 
-	let socket: Socket;
-
 	let chatDetailsList = createChatDetailsList(data.id);
 
 	function handleMessages(event: any) {
-		socket.emit('message', event.detail);
 		chatDetailsList.add(event.detail);
+
+		setTimeout(() => {
+			chatDetailsList.add({
+				id: Date.now(),
+				message: event.detail.message,
+				role: UserRole.SYSTEM
+			});
+		}, 4000);
 	}
-
-	onMount(() => {
-		socket = io('https://echo-websocket.onrender.com/');
-
-		socket.on('connect', () => {
-			console.log('Connected to WebSocket server');
-		});
-
-		socket.on('message', (message) => {
-			if (message && message.message) {
-				chatDetailsList.add({
-					id: Date.now(),
-					message: message.message,
-					role: UserRole.SYSTEM
-				});
-			}
-		});
-	});
 </script>
 
 <svelte:head>

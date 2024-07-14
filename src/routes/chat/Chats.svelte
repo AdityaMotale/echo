@@ -18,16 +18,6 @@
 		dispatch('message', chat);
 	}
 
-	function writeSystemMessage(message: string) {
-		let chat: ChatDetails = {
-			id: Date.now(),
-			message: message,
-			role: UserRole.SYSTEM
-		};
-
-		dispatch('message', chat);
-	}
-
 	/**
 	 * Extract time from epoch created by `Date.now()`
 	 *
@@ -59,7 +49,7 @@
 	<section class="grow flex flex-col-reverse justify-start overflow-y-scroll">
 		<div class="h-full w-full flex flex-col-reverse gap-4 px-4 py-2">
 			{#if chats && chats.length !== 0}
-				{#each chats.reverse() as chat}
+				{#each chats.sort((a, b) => a.id < b.id ? a.id : b.id).reverse() as chat}
 					{#if chat.role == UserRole.HUMAN}
 						<div class="flex w-full justify-end">
 							<div class="flex flex-col items-end justify-start max-w-lg gap-2">
